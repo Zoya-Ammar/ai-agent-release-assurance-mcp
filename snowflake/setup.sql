@@ -1,0 +1,31 @@
+-- Optional Snowflake path for the portfolio demo.
+-- Use only synthetic data. Replace identifiers to match your own sandbox account.
+CREATE DATABASE IF NOT EXISTS BANKING_QA_DEMO;
+CREATE SCHEMA IF NOT EXISTS BANKING_QA_DEMO.QUALITY;
+
+CREATE OR REPLACE TABLE BANKING_QA_DEMO.QUALITY.RELEASES (
+  RELEASE_ID VARCHAR, RELEASE_NAME VARCHAR, ENVIRONMENT VARCHAR,
+  PLANNED_DATE DATE, CRITICAL_FLOWS_TOTAL INTEGER
+);
+
+CREATE OR REPLACE TABLE BANKING_QA_DEMO.QUALITY.TEST_RESULTS (
+  TEST_RESULT_ID INTEGER, RELEASE_ID VARCHAR, TEST_NAME VARCHAR, SUITE VARCHAR,
+  STATUS VARCHAR, CRITICALITY VARCHAR, DURATION_SECONDS INTEGER, FAILURE_MESSAGE VARCHAR
+);
+
+CREATE OR REPLACE TABLE BANKING_QA_DEMO.QUALITY.DEFECTS (
+  DEFECT_ID VARCHAR, RELEASE_ID VARCHAR, TITLE VARCHAR, COMPONENT VARCHAR,
+  SEVERITY VARCHAR, STATUS VARCHAR, CUSTOMER_IMPACT VARCHAR
+);
+
+-- Snowflake supports native MCP server objects. This SQL-execution example is deliberately
+-- kept separate from the local least-privilege demo; grant a dedicated read-only role before use.
+CREATE OR REPLACE MCP SERVER BANKING_QA_DEMO.QUALITY.BANKING_QA_MCP
+  FROM SPECIFICATION $$
+    tools:
+      - title: "QA Data Query"
+        name: "qa_data_query"
+        type: "SYSTEM_EXECUTE_SQL"
+        description: "Query synthetic release, test result, and defect data for QA analysis."
+  $$;
+
