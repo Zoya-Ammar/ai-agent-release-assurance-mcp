@@ -1,10 +1,7 @@
-# Banking QA Intelligence MCP Server
+# AI Agent Release Assurance MCP
 
-An explainable Model Context Protocol (MCP) server that lets AI assistants analyze
-synthetic software-quality data and make evidence-based release recommendations.
-
-> **Portfolio safety:** every release, test, defect, and customer-impact statement in this
-> repository is fictional. No employer, customer, production, or regulated data is used.
+> **Version 0.1:** Release-intelligence foundation using synthetic QA data.  
+> AI-agent evaluation capabilities are planned for Version 0.2.
 
 ## Why this project exists
 
