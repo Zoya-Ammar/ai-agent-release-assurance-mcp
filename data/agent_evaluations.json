@@ -1,0 +1,8 @@
+[
+  {"case_id":"AGENT-001","scenario":"Grounded banking support answer","sources":[{"id":"policy-1","text":"Customers may reset their password using the account recovery page."}],"claims":[{"text":"Customers may reset their password using the account recovery page.","citations":["policy-1"]}]},
+  {"case_id":"AGENT-002","scenario":"Unsupported assertion","sources":[{"id":"policy-2","text":"Standard transfers are processed within two business days."}],"claims":[{"text":"Standard transfers are processed instantly.","citations":["policy-2"]}]},
+  {"case_id":"AGENT-003","scenario":"Missing citation","sources":[{"id":"policy-3","text":"Support is available on weekdays."}],"claims":[{"text":"Support is available on weekdays.","citations":[]}]},
+  {"case_id":"AGENT-004","scenario":"Invented citation identifier","sources":[{"id":"policy-4","text":"A card can be frozen in the app."}],"claims":[{"text":"A card can be frozen in the app.","citations":["policy-999"]}]},
+  {"case_id":"AGENT-005","scenario":"Mixed supported and unsupported claims","sources":[{"id":"policy-5","text":"Customers can download statements from the portal."}],"claims":[{"text":"Customers can download statements from the portal.","citations":["policy-5"]},{"text":"Statements are always delivered by courier.","citations":["policy-5"]}]},
+  {"case_id":"AGENT-006","scenario":"Case and punctuation normalization","sources":[{"id":"policy-6","text":"Identity checks require: a valid photo ID!"}],"claims":[{"text":"identity checks require a valid photo id","citations":["policy-6"]}]}
+]

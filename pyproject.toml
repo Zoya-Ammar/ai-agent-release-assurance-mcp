@@ -1,7 +1,7 @@
 [project]
 name = "banking-qa-intelligence-mcp"
-version = "0.1.0"
-description = "An MCP server for evidence-based software release readiness using synthetic banking QA data."
+version = "0.2.0"
+description = "An MCP server for release readiness and deterministic AI-agent grounding checks using synthetic data."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

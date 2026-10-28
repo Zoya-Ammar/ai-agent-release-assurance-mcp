@@ -173,3 +173,38 @@ This repository is an educational portfolio prototype. It is not a production ba
 ## License
 
 This project is available under the [MIT License](LICENSE).
+
+## Version 0.2: AI-agent grounding evaluation (implemented)
+
+Version 0.2 adds a **limited, deterministic grounding/citation check** while retaining all
+Version 0.1 release-intelligence tools. This is an educational first step toward the
+broader AI-agent assurance roadmap; security, privacy, accessibility, semantic entailment,
+Playwright execution, and agent-version comparisons are **not yet implemented**.
+
+### New MCP tools and resource
+
+- `assess_agent_grounding(case_id)`: evaluate one synthetic agent answer's atomic claims
+- `run_grounding_evaluation_suite()`: evaluate all bundled scenarios
+- `qa://grounding-cases`: list available synthetic evaluation case IDs
+
+Run the original setup commands, then open MCP Inspector and call
+`assess_agent_grounding` with `{"case_id":"AGENT-001"}`. Try `AGENT-002` through
+`AGENT-006` to inspect unsupported claims, missing citations, invented source IDs,
+mixed outcomes, and normalization behavior. The bundled synthetic corpus is in
+`data/agent_evaluations.json` and the implementation is in `src/banking_qa_mcp/grounding.py`.
+
+Run `uv run pytest -q` to execute both existing release tests and new grounding tests.
+Alternatively, with pytest installed, use `PYTHONPATH=src python -m pytest -q`.
+
+### How this evaluator works (and what it does not prove)
+
+Each case supplies **atomic claims**, **source text**, and **explicit citation IDs**.
+For each claim the validator verifies that cited IDs exist and checks whether the entire
+normalized claim is a contiguous substring of a cited source. A case passes only when
+all claims have such evidence. It returns claim-level status and exact-support metrics.
+
+This is **not** an LLM judge or semantic fact checker. Paraphrases may fail, and a copied
+false statement may pass. Claims are supplied explicitly rather than extracted from
+free-form agent answers. Therefore a PASS means *exact textual support was located in
+provided cited text*, not that an answer is factually correct, safe, or production ready.
+Do not use this score as a real-world deployment gate without more rigorous evaluation.

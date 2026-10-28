@@ -4,6 +4,12 @@ import json
 
 from mcp.server import MCPServer
 
+from banking_qa_mcp.grounding import (
+    evaluate_grounding_case,
+    evaluate_grounding_suite,
+    list_grounding_cases,
+)
+
 from banking_qa_mcp.service import (
     defect_hotspots,
     failed_tests,
@@ -37,6 +43,24 @@ def find_defect_hotspots(release_id: str) -> list[dict]:
 def recommend_regression_tests(release_id: str, max_tests: int = 5) -> dict:
     """Build a risk-based regression plan grounded in test and defect evidence."""
     return regression_plan(release_id, max_tests)
+
+
+@mcp.tool()
+def assess_agent_grounding(case_id: str) -> dict:
+    """Check synthetic agent claims against cited evidence using exact text matching."""
+    return evaluate_grounding_case(case_id)
+
+
+@mcp.tool()
+def run_grounding_evaluation_suite() -> dict:
+    """Run all bundled synthetic grounding cases and return evidence per claim."""
+    return evaluate_grounding_suite()
+
+
+@mcp.resource("qa://grounding-cases")
+def grounding_cases_resource() -> str:
+    """List available synthetic AI-agent grounding scenarios."""
+    return json.dumps(list_grounding_cases(), indent=2)
 
 
 @mcp.resource("qa://releases")
